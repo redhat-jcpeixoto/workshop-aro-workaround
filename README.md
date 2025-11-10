@@ -4,6 +4,7 @@
 git clone https://github.com/redhat-jcpeixoto/workshop-aro-workaround/
 
 cd workshop-aro-workaround
+
 helm repo index .
 
 python3 -m http.server 8080 &
