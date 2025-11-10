@@ -22,6 +22,8 @@ oc create ns resource-locker-operator
 
 oc create ns patch-operator
 
+oc create ns openshift-cluster-observability-operator
+
 helm upgrade -n custom-logging clf-operators mobb/operatorhub --install  --values ./clf-operators.yaml
 
 helm upgrade -n custom-logging  aro-clf-blob localrepo/aro-clf-blob   --version 0.1.4   -n custom-logging   --install   --set azure.storageAccount="${AZR_STORAGE_ACCOUNT_NAME}"   --set azure.storageAccountKey="${AZR_STORAGE_KEY}"   --set azure.storageContainer="aro-logs"
