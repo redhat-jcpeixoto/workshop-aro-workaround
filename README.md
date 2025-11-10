@@ -9,6 +9,7 @@ helm repo index .
 
 python3 -m http.server 8080 &
 
+helm repo add localrepo http://localhost:8080
 
 AZR_STORAGE_ACCOUNT_NAME="storage${GUID}"
 
