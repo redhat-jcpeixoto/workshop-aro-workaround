@@ -1,1 +1,1 @@
-oc -n bookinfo apply -f destination_rule/destination-rule-all.yaml
+oc -n bookinfo apply -f destination_rules/destination-rule-all.yaml
