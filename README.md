@@ -43,6 +43,19 @@ STORAGE_CLASS=$(oc get storageclass -o=jsonpath='{.items[?(@.metadata.annotation
 
 helm upgrade -n custom-logging  aro-clf-blob localrepo/aro-clf-blob   --version 0.1.4   -n custom-logging   --install   --set azure.storageAccount="${AZR_STORAGE_ACCOUNT_NAME}"   --set azure.storageAccountKey="${AZR_STORAGE_KEY}"   --set azure.storageContainer="aro-logs"
 
+oc -n openshift-logging rollout status daemonset collector
+
+cat <<EOF | oc apply -f -
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cluster-monitoring-config
+  namespace: openshift-monitoring
+data:
+  config.yaml: |
+EOF
+
 
 
  
