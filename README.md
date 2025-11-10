@@ -11,6 +11,7 @@ python3 -m http.server 8080 &
 
 
 AZR_STORAGE_ACCOUNT_NAME="storage${GUID}"
+
 AZR_STORAGE_KEY=$(az storage account keys list --resource-group "openenv-${GUID}" -n "${AZR_STORAGE_ACCOUNT_NAME}" --query "[0].value" -o tsv)
 
 helm upgrade -n custom-logging  aro-clf-blob localrepo/aro-clf-blob   --version 0.1.4   -n custom-logging   --install   --set azure.storageAccount="${AZR_STORAGE_ACCOUNT_NAME}"   --set azure.storageAccountKey="${AZR_STORAGE_KEY}"   --set azure.storageContainer="aro-logs"
