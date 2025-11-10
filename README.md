@@ -34,6 +34,7 @@ while ! oc get resourcelocker; do sleep 5; echo -n .; done \
 while  ! oc get UIPlugins; do sleep 5; echo -n .; done 
 
 helm upgrade -n "custom-logging" aro-thanos-af --install localrepo/aro-thanos-af --version 0.7.1 --set "aro.storageAccount=${AZR_STORAGE_ACCOUNT_NAME}"  --set "aro.storageAccountKey=${AZR_STORAGE_KEY}"  --set "aro.storageContainer=aro-metrics"  --set "enableUserWorkloadMetrics=true"
+
 oc -n custom-logging rollout status deploy aro-thanos-af-grafana-cr-deployment
 
 oc -n custom-logging get route aro-thanos-af-grafana-cr-route -o jsonpath='{"https://"}{.spec.host}{"\n"}'
