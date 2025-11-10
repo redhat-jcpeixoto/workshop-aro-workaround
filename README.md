@@ -26,13 +26,15 @@ oc create ns openshift-cluster-observability-operator
 
 helm upgrade -n custom-logging clf-operators mobb/operatorhub --install  --values ./clf-operators.yaml
 
+while ! oc get grafana; do sleep 5; echo -n .; done \
+while ! oc get ClusterLogForwarders; do sleep 5; echo -n .; done \
+while ! oc get lokistack; do sleep 5; echo -n .; done \
+while ! oc get resourcelocker; do sleep 5; echo -n .; done \
+while  ! oc get UIPlugins; do sleep 5; echo -n .; done 
+
 helm upgrade -n custom-logging  aro-clf-blob localrepo/aro-clf-blob   --version 0.1.4   -n custom-logging   --install   --set azure.storageAccount="${AZR_STORAGE_ACCOUNT_NAME}"   --set azure.storageAccountKey="${AZR_STORAGE_KEY}"   --set azure.storageContainer="aro-logs"
 
-while ! oc get grafana; do sleep 5; echo -n .; done 
-while ! oc get ClusterLogForwarders; do sleep 5; echo -n .; done 
-while ! oc get lokistack; do sleep 5; echo -n .; done 
-while ! oc get resourcelocker; do sleep 5; echo -n .; done
-while  ! oc get UIPlugins; do sleep 5; echo -n .; done
+
 
 helm upgrade -n "custom-logging" aro-thanos-af --install localrepo/aro-thanos-af --version 0.7.1 --set "aro.storageAccount=${AZR_STORAGE_ACCOUNT_NAME}"  --set "aro.storageAccountKey=${AZR_STORAGE_KEY}"  --set "aro.storageContainer=aro-metrics"  --set "enableUserWorkloadMetrics=true"
 
