@@ -45,15 +45,15 @@ helm upgrade -n custom-logging  aro-clf-blob localrepo/aro-clf-blob   --version 
 
 oc -n openshift-logging rollout status daemonset collector
 
-cat <<EOF | oc apply -f -
----
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: cluster-monitoring-config
-  namespace: openshift-monitoring
-data:
-  config.yaml: |
+cat <<EOF | oc apply -f - \
+--- \
+apiVersion: v1 \
+kind: ConfigMap \
+metadata: \
+  name: cluster-monitoring-config \
+  namespace: openshift-monitoring \
+data: \
+  config.yaml: | \
 EOF
 
 
